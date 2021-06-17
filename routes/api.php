@@ -18,3 +18,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'App\Http\Controllers\api\AuthController@login')->name('login');
     Route::post('register', 'App\Http\Controllers\api\AuthController@registration')->name('register');
 });
+
+Route::group(['prefix' => 'currency', 'middleware' => 'is_auth'], function () {
+    Route::get('/', 'App\Http\Controllers\api\CurrenciesController@index');
+    Route::get('/get_rate', 'App\Http\Controllers\api\CurrenciesController@getCurrencyPairRate');
+    Route::get('/get_rate_history', 'App\Http\Controllers\api\CurrenciesController@getCurrencyPairRateHistory');
+});
