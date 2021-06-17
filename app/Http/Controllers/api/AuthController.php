@@ -22,6 +22,13 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+//        $to_name = 'Chingiz';
+//        $to_email = 'shynggyskhan.bolatov@kimep.kz';
+//        $data = ['name'=>"Sam Jose", "body" => "Test mail"];
+//        Mail::send('email', $data, function($message) use ($to_name, $to_email) {
+//            $message->to($to_email, $to_name)->subject('Welcome');
+//            $message->from('chingizsdc@gmail.com','Welcome');
+//        });
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6'
