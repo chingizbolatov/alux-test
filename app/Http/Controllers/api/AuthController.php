@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Console\Job\CurrencyResponseClass;
 use App\Events\UserAuthorized;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -22,13 +19,6 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-//        $to_name = 'Chingiz';
-//        $to_email = 'shynggyskhan.bolatov@kimep.kz';
-//        $data = ['name'=>"Sam Jose", "body" => "Test mail"];
-//        Mail::send('email', $data, function($message) use ($to_name, $to_email) {
-//            $message->to($to_email, $to_name)->subject('Welcome');
-//            $message->from('chingizsdc@gmail.com','Welcome');
-//        });
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|min:6'
