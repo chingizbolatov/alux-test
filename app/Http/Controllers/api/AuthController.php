@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Console\Job\CurrencyResponseClass;
+use App\Events\UserAuthorized;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -34,6 +36,8 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return $this->response(401, 'Invalid login or password');
         }
+
+        UserAuthorized::dispatch(Auth::user());
 
         return $this->respondWithToken($token);
     }
