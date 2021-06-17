@@ -15,7 +15,6 @@ class CurrencyRequestsClass
 
     public function getCurrencyRatesList($pairs)
     {
-
         return $this->sendRequest('rates&pairs='. $pairs .'');
     }
 

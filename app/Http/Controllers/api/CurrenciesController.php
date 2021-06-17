@@ -29,10 +29,11 @@ class CurrenciesController extends Controller
             return $this->response(422, 'Validation error', $validator->errors()->getMessages());
         }
 
-        $c1_name = empty(Currency::find($request->c1_id)) ? null : Currency::find($request->c1_id)->name;
-        $c2_name = empty(Currency::find($request->c2_id)) ? null : Currency::find($request->c2_id)->name;
+        $currencyModel = new Currency();
+        $c1_name = $currencyModel->getName($request->c1_id);
+        $c2_name = $currencyModel->getName($request->c2_id);
 
-        if (is_null($c1_name) || is_null($c2_name)) {
+        if (empty($c1_name) || empty($c2_name)) {
             return $this->response(412, 'Could not find currency');
         }
 
@@ -40,7 +41,7 @@ class CurrenciesController extends Controller
         $currencyRequestsClass = new CurrencyRequestsClass();
         $rates = $currencyRequestsClass->getCurrencyRatesList($pair_name);
 
-        return $this->response(200, 'Success', $rates);
+        return $this->response(200, 'Actual rate for your request', $rates);
     }
 
     public function getCurrencyPairRateHistory(Request $request)
@@ -54,10 +55,11 @@ class CurrenciesController extends Controller
             return $this->response(422, 'Validation error', $validator->errors()->getMessages());
         }
 
-        $c1_name = empty(Currency::find($request->c1_id)) ? null : Currency::find($request->c1_id)->name;
-        $c2_name = empty(Currency::find($request->c2_id)) ? null : Currency::find($request->c2_id)->name;
+        $currencyModel = new Currency();
+        $c1_name = $currencyModel->getName($request->c1_id);
+        $c2_name = $currencyModel->getName($request->c2_id);
 
-        if (is_null($c1_name) || is_null($c2_name)) {
+        if (empty($c1_name) || empty($c2_name)) {
             return $this->response(412, 'Could not find currency');
         }
 
